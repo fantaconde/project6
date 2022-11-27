@@ -6,10 +6,15 @@ require("dotenv").config();
 //require the database connection
 require("./mongodb");
 const app = express();
+
 app.listen(3000, () => console.log("Server is running on port 3000"));
 
 //enable the use of json in the body of the request
 app.use(express.json());
+
+//set download path for storing the images
+app.use(express.static("./public"));
+app.use("../public/uploads", express.static("uploads"));
 
 //allow access to the frontend
 app.use((req, res, next) => {
@@ -25,9 +30,11 @@ app.use((req, res, next) => {
 //require the routes
 const indexRoutes = require("./routes/index.routes");
 const authRoutes = require("./routes/auth.routes");
+const sauceRoutes = require("./routes/sauce.routes");
 
 //define the routes
 app.use("/", indexRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api", sauceRoutes);
 
 module.exports = app;

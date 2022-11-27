@@ -1,12 +1,12 @@
 const { Schema, model } = require("mongoose");
 
-const saucerSchema = new Schema(
+const sauceSchema = new Schema(
   {
-    saucer: {
+    sauce: {
       type: String,
       required: true,
     },
-    saucerImage: {
+    sauceImageUrl: {
       type: String,
       required: true,
     },
@@ -16,5 +16,5 @@ const saucerSchema = new Schema(
   }
 );
 
-const Saucer = model("Saucer", saucerSchema);
-module.exports = Saucer;
+const Sauce = model("Sauce", sauceSchema);
+module.exports = Sauce;

@@ -15,6 +15,11 @@ const FRONTEND_URL =
 
 model.exports = (app) => {
   app.set("trust proxy", 1);
+  app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
   app.use(express.json());
   app.use(cookieParser());
   app.use(
