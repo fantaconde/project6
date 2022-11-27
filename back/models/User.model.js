@@ -8,7 +8,7 @@ const userSchema = new Schema(
       unique: true,
       lowercase: true,
     },
-    password: {
+    hashPassword: {
       type: String,
       required: true,
     },
