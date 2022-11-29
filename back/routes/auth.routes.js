@@ -20,22 +20,29 @@ router.post("/signup", (req, res, next) => {
   const { email, password } = req.body;
 
   //Check if email and password are provided
-  if (!email || !password) {
-    res.status(400).json({ message: "Provide email and password" });
+  if (!email) {
+    res.status(400).json({ message: "Provide email" });
+    return;
+  }
+
+  if (!password) {
+    res.status(400).json({ message: "Provide password" });
     return;
   }
 
   //Check if user exists in the database
   User.findOne({ email })
+    //resonse is the user that was found
+    //ideal case foundUser == null
     .then((foundUser) => {
       if (foundUser) {
         res.status(400).json({ message: "The email already exists" });
         return;
       }
+
       //encypt the password
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashPassword = bcrypt.hashSync(password, salt);
-
 
       //Create a new user if it doesn't exist in the database
       return User.create({ email, hashPassword });
@@ -55,28 +62,32 @@ router.post("/signup", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-
-//POST /api/auth/login 
+//POST /api/auth/login
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
 
   //Check if email and password are provided
-  if (!email || !password) {
+  if (!email) {
     res.status(400).json({ message: "Provide email and password" });
     return;
   }
 
+  if (!password) {
+    res.status(400).json({ message: "Provide password" });
+    return;
+  }
   //Check if user exists in the database
   User.findOne({ email })
     .then((foundUser) => {
       if (!foundUser) {
-        res.status(400).json({ message: "The email doesn't exist" });
+        res
+          .status(400)
+          .json({ message: "The email doesn't exist Please SignUp" });
         return;
       }
 
       //Check if the password is correct
       if (bcrypt.compareSync(password, foundUser.hashPassword)) {
-        
         //if the password is correct create a user object without the password
         const { _id, email } = foundUser;
         const user = { _id, email };
@@ -89,11 +100,11 @@ router.post("/login", (req, res, next) => {
         const token = jwt.sign(payload, process.env.SECRET, {
           algorithm: "HS256",
           expiresIn: "1h",
-        })
+        });
 
         // console.log(token);
 
-        res.status(200).json({authToken: token, user: user});
+        res.status(200).json({ authToken: token, user: payload });
       } else {
         res.status(400).json({ message: "Incorrect password" });
       }
@@ -102,9 +113,5 @@ router.post("/login", (req, res, next) => {
       console.log(err);
     });
 });
-
-
-
-
 
 module.exports = router;

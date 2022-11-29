@@ -19,6 +19,7 @@ router.post( "/sauces", uploadMiddleware , (req, res, next) => {
     //get the sauce data from the request body
 
     console.log(req.body);
+    res.json({ message: "Sauce created" });
     // console.log(req.file);
 
     // const sauce = req.body;
@@ -32,6 +33,15 @@ router.post( "/sauces", uploadMiddleware , (req, res, next) => {
     //     res.status(201).json(createdSauce);
     //   })
     //   .catch((err) => next(err));
+});
+
+//GET /api/sauces- it gets all the sauces in the database
+router.get("/sauces", (req, res, next) => {
+    Sauce.find()
+        .then((sauces) => {
+        res.status(200).json(sauces);
+        })
+        .catch((err) => next(err));
 });
 
 

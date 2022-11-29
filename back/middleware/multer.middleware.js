@@ -4,9 +4,11 @@ const multer = require("multer");
 
 //define the storage path for the images
 const storage = multer.diskStorage({
+  //define the storage location
   destination: (req, file, cb) => {
     cb(null, "../public/uploads/");
   },
+  //give the file a unique name
   filename: (req, file, cb) => {
     cb(null, Date.now() + "--" + file.originalname);
   },
@@ -28,6 +30,7 @@ const fileFilter = (req, file, cb) => {
 //define the upload variable
 let upload = multer({ storage: storage, fileFilter: fileFilter });
 
+//upload a single file
 const uploadMiddleware = upload.single("image");
 
 module.exports = uploadMiddleware;
