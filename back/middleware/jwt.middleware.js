@@ -1,26 +1,26 @@
-const { expressjwt: jwt } = require("express-jwt");
+// const { expressjwt: jwt } = require("express-jwt");
 
-const checkAuth = jwt({
-  secret: process.env.SECRET,
-  algorithms: ["HS256"],
-  requestProperty: "payload",
-  getToken: getTokenFromHeaders,
-});
+// const checkAuth = jwt({
+//   secret: process.env.SECRET,
+//   algorithms: ["HS256"],
+//   requestProperty: "payload",
+//   getToken: getTokenFromHeaders,
+// });
 
-//Help use to extract JWT token from the headers
+// //Help use to extract JWT token from the headers
 
-function getTokenFromHeaders(req) {
-  const {
-    headers: { authorization },
-  } = req;
+// function getTokenFromHeaders(req) {
+//   const {
+//     headers: { authorization },
+//   } = req;
 
-  if (authorization && authorization.split(" ")[0] === "Bearer") {
-    return authorization.split(" ")[1];
-  }
+//   if (authorization && authorization.split(" ")[0] === "Bearer") {
+//     return authorization.split(" ")[1];
+//   }
 
-  return null;
-}
+//   return null;
+// }
 
-module.exports = {
-  checkAuth,
-};
+// module.exports = {
+//   checkAuth,
+// };

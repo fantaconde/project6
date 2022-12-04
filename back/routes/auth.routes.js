@@ -90,7 +90,7 @@ router.post("/login", (req, res, next) => {
       if (bcrypt.compareSync(password, foundUser.hashPassword)) {
         //if the password is correct create a user object without the password
         const { _id, email } = foundUser;
-        const user = { _id, email };
+        // const user = { _id, email };
 
         //create an object that will be set as a token  payload
         const payload = { _id, email };
@@ -104,7 +104,7 @@ router.post("/login", (req, res, next) => {
 
         // console.log(token);
 
-        res.status(200).json({ authToken: token, user: payload });
+        res.status(200).json({ token: token, userId: payload });
       } else {
         res.status(400).json({ message: "Incorrect password" });
       }
