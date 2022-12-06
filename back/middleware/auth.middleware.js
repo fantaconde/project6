@@ -6,8 +6,8 @@ const jwt = require("jsonwebtoken");
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.SECRET);
-    const userId = decodedToken.userId;
-
+    const userId = decodedToken._id;
+    // console.log(decodedToken);
     req.Auth = {
       userId: userId,
     }

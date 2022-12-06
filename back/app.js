@@ -36,7 +36,7 @@ app.use("/", indexRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api", sauceRoutes);
 
-//define the image folder
+//define the image folder make the image folder static
 const path = require("path");
 app.use("/images", express.static(path.join(__dirname, "images")));
 

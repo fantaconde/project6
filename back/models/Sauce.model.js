@@ -2,31 +2,54 @@ const { Schema, model } = require("mongoose");
 
 const sauceSchema = new Schema(
   {
-    sauceName: {
+    userId: {
+      //user id
+      type: String,
+    },
+    name: {
       //sauce Name
       type: String,
       required: true,
     },
-    sauceImageUrl: {
+    manufacturer: {
+      //manufacturer
+      type: String,
+    },
+    description: {
+      //description
+      type: String,
+    },
+    mainPepper: {
+      //Main Pepper Ingredients
+      type: String,
+    },
+    imageUrl: {
       //Image
       type: String,
       required: true,
     },
-    sauceDescription: {
-      //description
-      type: String,
-    },
-    sauceHeat: {
+    heat: {
       //heat
       type: String,
     },
-    sauceManufacturer: {
-      //manufacturer
-      type: String,
+    likes: {
+      //likes
+      type: Number,
+      default: 0,
     },
-    sauceIngredients: {
-      //Main Pepper Ingredients
-      type: String,
+
+    dislikes: {
+      //dislikes
+      type: Number,
+      default: 0,
+    },
+    usersLiked: {
+      //users who liked
+      type: [String],
+    },
+    usersDisliked: {
+      //users who disliked
+      type: [String],
     },
   },
   {
